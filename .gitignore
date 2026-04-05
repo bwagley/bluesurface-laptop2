@@ -1,0 +1,22 @@
+# Build artifacts
+*.rpm
+*.iso
+
+# MOK signing key pair — generated once, reused across builds
+# Back these up! Losing them means re-enrolling on the laptop.
+config/mok/mok.priv
+config/mok/mok.der
+
+# DKMS sources cloned from upstream during build
+config/dkms/ipu-bridge-ov9734/
+config/dkms/ov9734-surface/
+
+# Working notes / build planning docs
+PROMPT.md
+SILVERBLUE_BASE.md
+
+# Local build config (contains your GitHub username)
+.env
+
+# Claude Code local settings
+.claude/

@@ -1,0 +1,16 @@
+--- a/dkms/ov9734-surface/ov9734.c
++++ b/dkms/ov9734-surface/ov9734.c
+@@ -967,6 +967,13 @@
+ 		ov9734->reset_gpio = NULL;
+ 	}
+
++	/*
++	 * Set client data early so ov9734_power_on() can find the ov9734
++	 * struct via i2c_get_clientdata(). v4l2_i2c_subdev_init() would
++	 * normally do this, but it runs after power_on.
++	 */
++	i2c_set_clientdata(client, &ov9734->sd);
++
+ 	ret = ov9734_power_on(ov9734->dev);
+ 	if (ret)
+ 		return dev_err_probe(ov9734->dev, ret, "failed to power on\n");

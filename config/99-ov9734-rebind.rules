@@ -1,0 +1,11 @@
+# Surface Laptop 2 — OV9734 probe ordering fix (Layer 2)
+#
+# When the IPU3 CIO2 PCI device binds, rebind the OV9734 sensor so it
+# probes again after ipu_bridge_init() has created the fwnode.
+#
+# Do NOT rebind INT3472:00 or INT3472:01 — the int3472-discrete driver
+# calls acpi_dev_clear_dependencies() which is one-shot and rebinding
+# after boot will always fail.
+
+ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x9d32", \
+    RUN+="/usr/local/sbin/ipu3-camera-rebind.sh"
