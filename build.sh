@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # ==========================================================================
 # build.sh — Build and push the Surface Laptop 2 custom image
 # ==========================================================================
@@ -8,6 +8,10 @@
 #   ./build.sh --no-cache   # full rebuild (no layer cache)
 # ==========================================================================
 set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BUILD_ONLY=false
+EXTRA_ARGS=()
 
 # ── Configuration (loaded from .env) ─────────────────────────────────────────
 if [[ -f "$SCRIPT_DIR/.env" ]]; then
@@ -20,10 +24,6 @@ fi
 
 FULL_IMAGE="${REGISTRY}/${GITHUB_USER}/${IMAGE_NAME}:${TAG}"
 # ─────────────────────────────────────────────────────────────────────────────
-
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BUILD_ONLY=false
-EXTRA_ARGS=()
 
 for arg in "$@"; do
     case "$arg" in
